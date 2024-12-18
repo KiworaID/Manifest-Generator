@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Bedrock Manifest Generator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-box"></i> MC Bedrock Manifest
+            </a>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <section id="manifest">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2><i class="bi bi-file-earmark-text"></i> Manifest Generator</h2>
+                        </div>
+                        <div class="card-body">
+                            <form id="manifestForm" class="needs-validation" novalidate>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">
+                                            <i class="bi bi-tag"></i> Nama Pack
+                                        </label>
+                                        <input type="text" class="form-control" id="packName" required>
+                                        <div class="invalid-feedback">Nama pack harus diisi</div>
+                                        <div class="form-text">Gunakan §x untuk warna (contoh: §6Nama Pack)</div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">
+                                            <i class="bi bi-code"></i> Versi
+                                        </label>
+                                        <input type="text" class="form-control" id="version" placeholder="1.0.0" pattern="^\d+\.\d+\.\d+$" required>
+                                        <div class="invalid-feedback">Versi harus dalam format x.x.x</div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">
+                                        <i class="bi bi-text-paragraph"></i> Deskripsi
+                                    </label>
+                                    <textarea class="form-control" id="description" rows="3" required></textarea>
+                                    <div class="invalid-feedback">Deskripsi harus diisi</div>
+                                    <div class="form-text">Gunakan §x untuk warna dan §l untuk tebal</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">
+                                            <i class="bi bi-box-seam"></i> Tipe Pack
+                                        </label>
+                                        <select class="form-select" id="packType" required>
+                                            <option value="resources">Resource Pack</option>
+                                            <option value="behavior">Behavior Pack</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">
+                                            <i class="bi bi-gear"></i> Min Engine Version
+                                        </label>
+                                        <select class="form-select" id="minEngineVersion" required>
+                                            <option value="1.21.50">1.21.50 (Latest)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div id="behaviorOptions" class="d-none">
+                                    <div class="alert alert-info mb-3">
+                                        <i class="bi bi-info-circle"></i> Dependencies yang akan ditambahkan:
+                                        <ul class="mb-0 mt-2">
+                                            <li>@minecraft/server (1.17.0-beta)</li>
+                                            <li>@minecraft/server-ui (1.3.0)</li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">
+                                            <i class="bi bi-code-square"></i> Module Types
+                                        </label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="moduleData" checked>
+                                            <label class="form-check-label" for="moduleData">Data Module</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="moduleScript">
+                                            <label class="form-check-label" for="moduleScript">Script Module</label>
+                                        </div>
+                                    </div>
+
+                                    <div id="scriptOptions" class="mb-3 d-none">
+                                        <label class="form-label">
+                                            <i class="bi bi-file-code"></i> Script Entry Point
+                                        </label>
+                                        <input type="text" class="form-control" id="scriptEntry" placeholder="scripts/main.js">
+                                        <div class="form-text">Path ke file JavaScript utama</div>
+                                    </div>
+                                </div>
+
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                                    <button type="reset" class="btn btn-light me-md-2">
+                                        <i class="bi bi-arrow-counterclockwise"></i> Reset
+                                    </button>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="bi bi-file-earmark-code"></i> Generate Manifest
+                                    </button>
+                                </div>
+                            </form>
+
+                            <div class="mt-4" id="outputContainer" style="display: none;">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <h5 class="mb-0">Output Manifest</h5>
+                                    <button class="btn btn-sm btn-outline-primary" id="copyButton">
+                                        <i class="bi bi-clipboard"></i> Copy
+                                    </button>
+                                </div>
+                                <pre id="manifestOutput" class="bg-light p-3 rounded"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
